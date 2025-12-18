@@ -6,7 +6,7 @@ import { useEffect } from "react";
 export default function ProtectedRoute({
   children,
 }: {
-  children: JSX.Element;
+  children: React.ReactNode;
 }) {
   const { data, isLoading, error, isError } = useQuery({
     queryKey: ["me"],

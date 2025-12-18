@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateTask, deleteTask } from "../api/task.api";
+import { deleteTask } from "../api/task.api";
 import type { Task } from "../types/task";
 
 const statusColor: Record<string, string> = {
@@ -18,30 +18,6 @@ const priorityColor: Record<string, string> = {
 
 export default function TaskCard({ task }: { task: Task }) {
   const queryClient = useQueryClient();
-
-  const updateMutation = useMutation({
-    mutationFn: (status: Task["status"]) =>
-      updateTask(task.id, { status }),
-    onMutate: async (newStatus) => {
-      await queryClient.cancelQueries({ queryKey: ["tasks"] });
-
-      const previous = queryClient.getQueryData<Task[]>(["tasks"]);
-
-      queryClient.setQueryData<Task[]>(["tasks"], (old) =>
-        old?.map((t) =>
-          t.id === task.id ? { ...t, status: newStatus } : t
-        )
-      );
-
-      return { previous };
-    },
-    onError: (_err, _new, context) => {
-      queryClient.setQueryData(["tasks"], context?.previous);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["tasks"] });
-    },
-  });
 
   const deleteMutation = useMutation({
     mutationFn: () => deleteTask(task.id),

@@ -4,7 +4,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import { useAuth } from "./context/AuthContext";
 
-function Protected({ children }: { children: JSX.Element }) {
+function Protected({ children }: { children: React.ReactNode }) {
   const { authenticated, loading } = useAuth();
 
   if (loading) {
