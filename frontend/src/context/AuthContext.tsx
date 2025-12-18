@@ -1,0 +1,33 @@
+import { createContext, useContext, useEffect, useState } from "react";
+import api from "../api/axios";
+
+type AuthContextType = {
+  authenticated: boolean;
+  loading: boolean;
+};
+
+const AuthContext = createContext<AuthContextType>({
+  authenticated: false,
+  loading: true,
+});
+
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const [authenticated, setAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    api
+      .get("/auth/me")
+      .then(() => setAuthenticated(true))
+      .catch(() => setAuthenticated(false))
+      .finally(() => setLoading(false));
+  }, []);
+
+  return (
+    <AuthContext.Provider value={{ authenticated, loading }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export const useAuth = () => useContext(AuthContext);
