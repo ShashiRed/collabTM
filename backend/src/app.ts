@@ -13,7 +13,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "https://collab-tm.vercel.app",
+    origin: "https://collab-27kndliln-shashi-reddys-projects.vercel.app",
     credentials: true,
   })
 );
