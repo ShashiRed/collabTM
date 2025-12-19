@@ -8,15 +8,19 @@ import { errorHandler } from "./middlewares/error.middleware";
 
 const app = express();
 
-app.use(express.json());
-app.use(cookieParser());
-
+// CORS MUST BE FIRST
 app.use(
   cors({
-    origin: "https://collab-27kndliln-shashi-reddys-projects.vercel.app",
+    origin: process.env.CLIENT_URL || "https://collab-27kndliln-shashi-reddys-projects.vercel.app",
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
   })
 );
+
+// THEN Body Parsers
+app.use(express.json());
+app.use(cookieParser());
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/tasks", taskRoutes);
