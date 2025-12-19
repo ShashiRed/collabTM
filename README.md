@@ -2,6 +2,11 @@
 
 A modern, real-time collaborative task management application built with production-grade architecture, enabling teams to create, manage, and track tasks efficiently with live updates.
 
+## 🚀 Live Demo
+
+- **Frontend**: [https://collab-tm.vercel.app](https://collab-tm.vercel.app)
+- **Backend API**: [https://collabtm.onrender.com](https://collabtm.onrender.com)
+
 ## Features
 
 ### Authentication & Authorization
@@ -81,13 +86,24 @@ frontend/
 PORT=5001
 DATABASE_URL=postgresql://user:password@host:port/db
 JWT_SECRET=your-secret-key
-CLIENT_URL=http://localhost:5174
+CLIENT_URL=https://collab-tm.vercel.app
 ```
 
-**Frontend** (`.env`)
+**Frontend** (`frontend/.env`)
 ```
-VITE_API_URL=http://localhost:5001/api/v1
+VITE_API_URL=https://collabtm.onrender.com/api/v1
 ```
+
+## Deployment
+
+**Backend** - Deployed on Render
+- Automatic deployments from GitHub
+- PostgreSQL database hosted on Render
+- Environment variables configured in Render dashboard
+
+**Frontend** - Deployed on Vercel
+- Automatic deployments from GitHub
+- Environment variable `VITE_API_URL` set in Vercel dashboard
 
 ## Running Locally
 
