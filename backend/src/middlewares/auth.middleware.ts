@@ -3,6 +3,10 @@ import { verifyToken } from "../utils/jwt";
 
 export interface AuthRequest extends Request {
   userId?: string;
+  body: any;
+  params: any;
+  query: any;
+  cookies: any;
 }
 
 export const requireAuth = (
