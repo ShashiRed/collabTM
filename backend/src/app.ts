@@ -11,7 +11,7 @@ const app = express();
 // CORS MUST BE FIRST
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "https://collab-27kndliln-shashi-reddys-projects.vercel.app",
+    origin: process.env.CLIENT_URL || "https://collab-tm.vercel.app",
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
