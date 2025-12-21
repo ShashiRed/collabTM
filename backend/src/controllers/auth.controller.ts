@@ -48,8 +48,21 @@ export const logout = (_req: Request, res: Response) => {
   res.status(200).json({ message: "Logged out successfully" });
 };
 
-export const me = (req: AuthRequest, res: Response) => {
-  res.status(200).json({
-    userId: req.userId,
-  });
+export const me = async (req: AuthRequest, res: Response) => {
+  try {
+    const { findUserById } = await import("../repositories/user.repository");
+    const user = await findUserById(req.userId!);
+    
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({
+      id: user.id,
+      name: user.name,
+      email: user.email,
+    });
+  } catch (err: any) {
+    res.status(500).json({ message: err.message });
+  }
 };
