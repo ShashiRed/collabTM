@@ -8,6 +8,9 @@ import { errorHandler } from "./middlewares/error.middleware";
 
 const app = express();
 
+// Trust Render's proxy for secure cookies
+app.set("trust proxy", 1);
+
 // CORS MUST BE FIRST
 app.use(
   cors({
