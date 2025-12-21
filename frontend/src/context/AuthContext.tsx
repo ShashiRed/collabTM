@@ -19,7 +19,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     api
       .get("/auth/me")
       .then(() => setAuthenticated(true))
-      .catch(() => setAuthenticated(false))
+      .catch((error) => {
+        // 401 is expected when user is not logged in - silently handle it
+        if (error.response?.status !== 401) {
+          console.error("Auth check failed:", error);
+        }
+        setAuthenticated(false);
+      })
       .finally(() => setLoading(false));
   }, []);
 

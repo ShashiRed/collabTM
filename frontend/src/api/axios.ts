@@ -10,12 +10,14 @@ const api = axios.create({
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.error("API Error:", {
-      url: error.config?.url,
-      status: error.response?.status,
-      message: error.response?.data?.message || error.message,
-      fullError: error,
-    });
+    // Don't log 401 errors as they are expected when not authenticated
+    if (error.response?.status !== 401) {
+      console.error("API Error:", {
+        url: error.config?.url,
+        status: error.response?.status,
+        message: error.response?.data?.message || error.message,
+      });
+    }
     return Promise.reject(error);
   }
 );
